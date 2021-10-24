@@ -33,4 +33,5 @@ CREATE TABLE employee(
     FOREIGN KEY (role_id) REFERENCES role(id)
     FOREIGN KEY (manager_id) REFERENCES employee(id)
     ON DELETE CASCADE
+    --what if an employee has no manager? => SET NULL??
 );
