@@ -1,7 +1,8 @@
 const express = require('express');
 // Import and require mysql2
 const mysql = require('mysql2');
-
+// require the console.table package
+const table = require('console.table');
 const PORT = process.env.PORT || 3001;
 const app = express();
 
@@ -23,7 +24,10 @@ const db = mysql.createConnection(
 
 
 
-
+// Default response for any other request (Not Found)
+app.use((req, res) => {
+    res.status(404).end();
+  });  
 
 
 app.listen(PORT, () => {
