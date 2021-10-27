@@ -43,14 +43,13 @@ function options() {
     ]
     
   })
-  .then(function(answer) {
+  .then(function(answers) {
     
 
+  
   })
 
-
 }
-
 
 
 
