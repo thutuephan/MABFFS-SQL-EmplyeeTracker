@@ -12,16 +12,62 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
 // Connect to database
-const db = mysql.createConnection(
+const connection = mysql.createConnection(
   {
 
     host: 'localhost',
     user: 'root',
     password: '',
     database: 'company',
-  },
-    console.log(`Connected to the company_db database.`)
+  }
 );
+connection.connect((err) => {
+  if (err) throw err;
+  console.log(`Connected to the company_db database.`);
+})
+
+function options() {
+  inquirer.prompt({
+    type: 'list',
+    name: 'menu',
+    message: 'What would you like to do?',
+    choices: [
+              'View All Departments',
+              'Add Department',
+              'View All Roles',
+              'Add Role',
+              'View All Employees',
+              'Add Employee',
+              'Update Employee Role',
+              'Quit'
+    ]
+    
+  })
+  .then(function(answer) {
+    
+
+  })
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -29,7 +75,6 @@ const db = mysql.createConnection(
 app.use((req, res) => {
     res.status(404).end();
   });  
-
 
 app.listen(PORT, () => {
     console.log('Server running on port ${PORT}');

@@ -26,4 +26,4 @@ VALUES
     ('Becca', 'Sun', 2, 6);
     ('Simmon', 'Wade', 4, null);
     ('Neal', 'Arnold', 3, 4);
-    ('Charlotte', 'Coleman', 4, 1);
+    ('Charlotte', 'Coleman', 5, 1);
