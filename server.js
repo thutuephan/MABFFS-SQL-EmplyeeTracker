@@ -44,13 +44,36 @@ function options() {
     
   })
   .then(function(answers) {
-    
+    switch(answer.menu) {
+      case "View All Departments":
+        viewAllDepartments();
+        break;
+
+
+        
+      default:
+        console.log("You chose wrong")
+    }
 
   
   })
 
 }
 
+function viewAllDepartments() {
+  const query = 'SELECT * FROM deparment';
+  connection.query(query, function(err, results) {
+    if (err) {
+      console.log(err)
+    }
+    else {
+      // do stuff with the results 
+      console.log(results)
+      console.table(results);
+      options();
+    }
+  })
+}
 
 
 
