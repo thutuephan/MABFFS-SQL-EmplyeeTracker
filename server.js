@@ -50,9 +50,9 @@ function options() {
         break;
 
 
-        
+
       default:
-        console.log("You chose wrong")
+        console.log("You chose wrong.")
     }
 
   
