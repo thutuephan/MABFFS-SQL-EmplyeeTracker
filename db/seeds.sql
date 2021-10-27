@@ -11,19 +11,19 @@ VALUES
     ('CEO', 250000, 1),
     ('Account Manager', 165000, 2),
     ('Data Analyst', 150000, 3),
-    ('Software Developer', 80000, 3)
+    ('Software Developer', 80000, 3),
     ('CFO', 210000, 2),
     ('Sales Manager', 75000, 5),
     ('HR Director', 130000, 4);
 
 INSERT INTO employee(first_name, last_name, role_id, manager_id)
 VALUES
-    ('Mike', 'Stitt', 1, 4),
-    ('Tyler', 'Kuhn', 2, 3),
-    ('Jessica', 'Dunnewold', 3, 1),
+    ('Mike', 'Stitt', 1, 400),
+    ('Tyler', 'Kuhn', 2, 470),
+    ('Jessica', 'Dunnewold', 3, 590),
     ('Lisa', 'Russell', 4, null),
-    ('Retihaj', 'Bardwaj', 5, 5),
-    ('Becca', 'Sun', 5, 4),
+    ('Retihaj', 'Bardwaj', 5, 298),
+    ('Becca', 'Sun', 5, 635),
     ('Simmon', 'Wade', 3, null),
-    ('Neal', 'Arnold', 4, 4),
-    ('Charlotte', 'Coleman', 2, 11);
+    ('Neal', 'Arnold', 4, 75),
+    ('Charlotte', 'Coleman', 2, 354);
