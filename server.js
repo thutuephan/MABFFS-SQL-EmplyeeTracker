@@ -122,7 +122,26 @@ function viewAllRoles() {
 function addRole() {
   connection.query('SELECT * FROM department', (err, res) => {
     if (err) throw err;
-    inquirer.prompts
+    inquirer.prompt([
+      {
+        type: 'input',
+        name: 'newRole',
+        message: 'Which role would you like to add?'
+      },
+      {
+        type: 'input',
+        name: 'salary',
+        message: 'Please enter the salary for this new role.',
+        validate: salaryInput => {
+          if(isNaN(salaryInput)) {
+            console.log('Please enter a number.')
+            return false;
+          } else {
+            return true;
+          }
+        }
+      },
+    ])
 
   })
 }
