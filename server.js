@@ -4,6 +4,7 @@ const mysql = require('mysql2');
 const inquirer = require('inquirer');
 // require the console.table package
 const table = require('console.table');
+const { query } = require('express');
 const PORT = process.env.PORT || 3001;
 const app = express();
 
@@ -98,8 +99,8 @@ function addDepartment() {
       message: 'Which department would you like to add?'
   
     }
-    ]).then(function(answer) {
-      connection.query(`INSERT INTO department (name) VALUES ('${answer.newDepartment}');`, (err, results) => {
+    ]).then(function(answers) {
+      connection.query(`INSERT INTO department (name) VALUES ('${answers.newDepartment}');`, (err, results) => {
         if(err) throw err;
         console.log('New department added!');
         console.table(results);
@@ -108,7 +109,23 @@ function addDepartment() {
     })
 };
 
+function viewAllRoles() {
+  const query = 'SELECT * FROM role';
+  connection.query(query, (err, res) => {
+    if(err) throw err;
+    console.table(results);
+    options();
+  })
+};
 
+// Add a role to the table database with the name, salary, and the department it belongs to
+function addRole() {
+  connection.query('SELECT * FROM department', (err, res) => {
+    if (err) throw err;
+    inquirer.prompts
+
+  })
+}
 
 
 
