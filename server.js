@@ -73,7 +73,7 @@ function options() {
     }
   })
 
-}
+};
 
 function viewAllDepartments() {
   const query = 'SELECT * FROM deparment';
@@ -88,7 +88,25 @@ function viewAllDepartments() {
       options();
     }
   })
-}
+};
+
+function addDepartment() {
+  inquirer.prompt([
+    {
+      type: 'input',
+      name: 'newDepartment',
+      message: 'Which department would you like to add?'
+  
+    }
+    ]).then(function(answer) {
+      connection.query(`INSERT INTO department (name) VALUES ('${answer.newDepartment}');`, (err, results) => {
+        if(err) throw err;
+        console.log('New department added!');
+        console.table(results);
+        options();
+      })
+    })
+};
 
 
 
