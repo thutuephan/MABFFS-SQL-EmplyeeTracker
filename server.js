@@ -277,7 +277,7 @@ function updateEmployeeRole() {
       },
       
     ]).then(function (answers) {
-      connection.query(`UPDATE employee SET role_id = '${answers.newRole}' WHERE id = '${answers.upEmployee}');`, (err, res) => {
+      connection.query(`UPDATE employee SET role_id = '${answers.newRole}' WHERE id = '${answers.upEmployee}'`, (err, res) => {
         if (err) throw err;
         console.log('Employee updated!');
         console.log(res);
@@ -297,19 +297,17 @@ function updateEmployeeRole() {
 
 
 
-
-
-
-
-
-
   connection.connect((err) => {
     if (err) throw err;
     console.log(`Connected to the company_db database.`);
     options();
   })
   
+quitApp = () => {
+  console.log('See you next time!');
+  connection.end();
 
+}
 
 
 
