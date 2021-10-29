@@ -77,7 +77,7 @@ function options() {
 };
 
 function viewAllDepartments() {
-  const query = 'SELECT * FROM deparment';
+  const query = 'SELECT * FROM department';
   connection.query(query, function(err, res) {
     if (err) {
       console.log(err)
@@ -124,6 +124,7 @@ function addRole() {
   
   connection.query('SELECT * FROM department', (err, data) => {
     if (err) throw err;
+    // created an array of object-department to return values
     let deptArray = data.map(function(department) {
       return {
       name: department.name,
@@ -131,7 +132,6 @@ function addRole() {
       }
     });
     
-
     inquirer.prompt([
       {
         type: 'input',
@@ -140,7 +140,7 @@ function addRole() {
       },
       {
         type: 'input',
-        name: 'salary',
+        name: 'newRoleSalary',
         message: 'Please enter the salary for this new role.',
         validate: salaryInput => {
           if(isNaN(salaryInput)) {
@@ -157,9 +157,16 @@ function addRole() {
         message: 'Which department does the new role belong to?',
         choices: deptArray
       }
-    ])
+    ]).then(function(answers) {
+      connection.query(`INSERT INTO role (title, salary, department_id) VALUES ('${answers.newRoleName}, ${answers.newRoleSalary}, ${answers.departmentId}');`, (err, res) => {
+        if(err) throw err;
+        console.log('New role added!');
+        console.log(res);
+        options();
+      })
+    })
   });
-
+}
 function viewAllEmployees() {
   const query = 'SELECT * FROM employee';
   connection.query(query, (err, res) => {
@@ -169,6 +176,36 @@ function viewAllEmployees() {
     options();
   })
 };
+
+function addEmployee() {
+  inquirer.prompt([
+    
+    {
+      type: 'input',
+      name: 'newFirstName',
+      message: "Please enter the employee's first name."
+  
+    },
+    {
+      type: 'input',
+      name: 'newLastName',
+      message: "Please enter the employee's last name."
+  
+    },
+    {
+      type: 'input',
+      name: 'employeeRole',
+      message: 'What is the employee\'s role?'
+  
+    },
+    {
+      type: 'input',
+      name: 'empManager',
+      message: 'Who is the employee\'s manager?'
+      
+    }
+  ])
+}
 
 
 
