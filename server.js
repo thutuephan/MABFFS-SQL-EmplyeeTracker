@@ -103,7 +103,7 @@ function addDepartment() {
       connection.query(`INSERT INTO department (name) VALUES ('${answers.newDepartment}');`, (err, res) => {
         if(err) throw err;
         console.log('New department added!');
-        console.table(results);
+        console.log(res);
         options();
       })
     })
@@ -114,7 +114,7 @@ function viewAllRoles() {
   connection.query(query, (err, res) => {
     if(err) throw err;
     console.log(res);
-    console.table(results);
+    console.table(res);
     options();
   })
 };
@@ -125,8 +125,10 @@ function addRole() {
   connection.query('SELECT * FROM department', (err, data) => {
     if (err) throw err;
     let deptArray = data.map(function(department) {
+      return {
       name: department.name,
       value: department.id
+      }
     });
     
 
@@ -154,13 +156,11 @@ function addRole() {
         name: 'departmentId',
         message: 'Which department does the new role belong to?',
         choices: deptArray
-        
-        }
       }
     ])
+  });
+  
 
-  })
-}
 
 
 
