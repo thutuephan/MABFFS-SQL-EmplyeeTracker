@@ -159,7 +159,16 @@ function addRole() {
       }
     ])
   });
-  
+
+function viewAllEmployees() {
+  const query = 'SELECT * FROM employee';
+  connection.query(query, (err, res) => {
+    if(err) throw err;
+    console.log(res);
+    console.table(res);
+    options();
+  })
+};
 
 
 
