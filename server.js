@@ -18,8 +18,8 @@ const connection = mysql.createConnection(
 
     host: 'localhost',
     user: 'root',
-    password: '',
-    database: 'company',
+    password: 'PerfectLaLaLand_29',
+    database: 'company_db',
   }
 );
 
@@ -53,6 +53,7 @@ function options() {
           break;
         case 'Add Role':
           addRole();
+          break;
         case 'View All Employees':
           viewAllEmployees();
           break;
@@ -81,7 +82,7 @@ function viewAllDepartments() {
     else {
       // do stuff with the results 
       console.log(res)
-      console.table(results);
+      console.table(res);
       options();
     }
   })
@@ -195,7 +196,6 @@ function addEmployee() {
         name: employee.first_name + " " + employee.last_name,
         value: employee.id
       }
-
     });
     managerArray.push({
       value: null,
@@ -203,8 +203,22 @@ function addEmployee() {
     })
   })
 
-  inquirer.prompt([
+  
+}
 
+function updateEmployeeRole() {
+  let roleArray = [];
+  let employeeArray = [];
+  
+  connection.query('SELECT id, title FROM role', (err, data) => {
+    if (err) throw err;
+    roleArray = data.map(function (role) {
+      return {
+        name: role.title,
+        value: role.id
+      }
+    });
+    inquirer.prompt([
     {
       type: 'input',
       name: 'newFirstName',
@@ -239,19 +253,6 @@ function addEmployee() {
       options();
     })
   })
-}
-
-function updateEmployeeRole() {
-  let roleArray = [];
-  let employeeArray = [];
-  
-  connection.query('SELECT id, title FROM role', (err, data) => {
-    roleArray = data.map(function (role) {
-      return {
-        name: role.title,
-        value: role.id
-      }
-    });
   })
   connection.query('SELECT id, first_name, last_name FROM employee', (err, data) => {
     if (err) throw err;
@@ -271,14 +272,12 @@ function updateEmployeeRole() {
       name: 'upEmployee',
       message: 'Which employee would you like to update?',
       choices: employeeArray
-
     },
     {
       type: 'list',
       name: 'newRole',
       message: 'Which role do you want to assign the selected employee',
       choices: roleArray
-
     },
     
   ]).then(function (answers) {
@@ -291,7 +290,7 @@ function updateEmployeeRole() {
   })
 
 
-
+}
 
 
 
@@ -320,11 +319,3 @@ function updateEmployeeRole() {
 
 
 
-// Default response for any other request (Not Found)
-// app.use((req, res) => {
-//   res.status(404).end();
-// });
-
-// app.listen(PORT, () => {
-//   console.log('Server running on port ${PORT}');
-// });
