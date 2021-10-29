@@ -45,7 +45,7 @@ function options() {
     
   })
   .then(function(answers) {
-    switch(answer.menu) {
+    switch(answers.menu) {
       case 'View All Departments':
         viewAllDepartments();
         break;
@@ -78,13 +78,13 @@ function options() {
 
 function viewAllDepartments() {
   const query = 'SELECT * FROM deparment';
-  connection.query(query, function(err, results) {
+  connection.query(query, function(err, res) {
     if (err) {
       console.log(err)
     }
     else {
       // do stuff with the results 
-      console.log(results)
+      console.log(res)
       console.table(results);
       options();
     }
@@ -95,12 +95,12 @@ function addDepartment() {
   inquirer.prompt([
     {
       type: 'input',
-      name: 'newDepartment',
+      name: 'newDepartmentName',
       message: 'Which department would you like to add?'
   
     }
     ]).then(function(answers) {
-      connection.query(`INSERT INTO department (name) VALUES ('${answers.newDepartment}');`, (err, results) => {
+      connection.query(`INSERT INTO department (name) VALUES ('${answers.newDepartment}');`, (err, res) => {
         if(err) throw err;
         console.log('New department added!');
         console.table(results);
@@ -113,6 +113,7 @@ function viewAllRoles() {
   const query = 'SELECT * FROM role';
   connection.query(query, (err, res) => {
     if(err) throw err;
+    console.log(res);
     console.table(results);
     options();
   })
@@ -120,12 +121,19 @@ function viewAllRoles() {
 
 // Add a role to the table database with the name, salary, and the department it belongs to
 function addRole() {
-  connection.query('SELECT * FROM department', (err, res) => {
+  
+  connection.query('SELECT * FROM department', (err, data) => {
     if (err) throw err;
+    let deptArray = data.map(function(department) {
+      name: department.name,
+      value: department.id
+    });
+    
+
     inquirer.prompt([
       {
         type: 'input',
-        name: 'newRole',
+        name: 'newRoleName',
         message: 'Which role would you like to add?'
       },
       {
@@ -141,10 +149,19 @@ function addRole() {
           }
         }
       },
+      {
+        type: 'list',
+        name: 'departmentId',
+        message: 'Which department does the new role belong to?',
+        choices: deptArray
+        
+        }
+      }
     ])
 
   })
 }
+
 
 
 
