@@ -97,7 +97,7 @@ function addDepartment() {
 
     }
   ]).then(function (answers) {
-    connection.query(`INSERT INTO department (name) VALUES ('${answers.newDepartment}');`, (err, res) => {
+    connection.query(`INSERT INTO department (name) VALUES ('${answers.newDepartmentName}');`, (err, res) => {
       if (err) throw err;
       console.log('New department has been added!');
       console.log(res);
@@ -155,7 +155,7 @@ function addRole() {
         choices: deptArray
       }
     ]).then(function (answers) {
-      connection.query(`INSERT INTO role (title, salary, department_id) VALUES ('${answers.newRoleName}, ${answers.newRoleSalary}, ${answers.departmentId}');`, (err, res) => {
+      connection.query(`INSERT INTO role (title, salary, department_id) VALUES ('${answers.newRoleName}', '${answers.newRoleSalary}', '${answers.departmentId}');`, (err, res) => {
         if (err) throw err;
         console.log('New role has been added!');
         console.log(res);
@@ -186,25 +186,58 @@ function addEmployee() {
         value: role.id
       }
     });
-  })
-
-  connection.query('SELECT id, first_name, last_name FROM employee', (err, data) => {
-    if (err) throw err;
-    // created an array of object-manager to return values
-    managerArray = data.map(function (employee) {
-      return {
-        name: employee.first_name + " " + employee.last_name,
-        value: employee.id
-      }
-    });
-    managerArray.push({
-      value: null,
-      name: 'None'
+    connection.query('SELECT id, first_name, last_name FROM employee', (err, data) => {
+      if (err) throw err;
+      // created an array of object-manager to return values
+      managerArray = data.map(function (employee) {
+        return {
+          name: employee.first_name + " " + employee.last_name,
+          value: employee.id
+        }
+      });
+      managerArray.push({
+        value: null,
+        name: 'None'
+      })
+    
+  
+    inquirer.prompt([
+      {
+        type: 'input',
+        name: 'newFirstName',
+        message: 'Please enter the employee\'s first name.'
+      },
+      {
+        type: 'input',
+        name: 'newLastName',
+        message: 'Please enter the employee\'s last name.'
+      },
+      {
+        type: 'list',
+        name: 'employeeRole',
+        message: 'What is the employee\'s role?',
+        choices: roleArray
+      },
+      {
+        type: 'list',
+        name: 'empManager',
+        message: 'Who is the manager of the employee?',
+        choices: managerArray
+      },
+    ]).then(function (answers) {
+      connection.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('${answers.newFirstName}', '${answers.newLastName}', '${answers.employeeRole}', '${answers.empManager}');`, (err, res) => {
+        if (err) throw err;
+        console.log('New employee has been added!');
+        console.log(res);
+        options();
+      })
     })
   })
+  })
+}
 
   
-}
+  
 
 function updateEmployeeRole() {
   let roleArray = [];
@@ -218,42 +251,7 @@ function updateEmployeeRole() {
         value: role.id
       }
     });
-    inquirer.prompt([
-    {
-      type: 'input',
-      name: 'newFirstName',
-      message: 'Please enter the employee\'s first name.'
-
-    },
-    {
-      type: 'input',
-      name: 'newLastName',
-      message: 'Please enter the employee\'s last name.'
-
-    },
-    {
-      type: 'input',
-      name: 'employeeRole',
-      message: 'What is the employee\'s role?',
-      choices: roleArray
-
-    },
-    {
-      type: 'input',
-      name: 'empManager',
-      message: 'Who is the employee\'s manager?',
-      choices: managerArray
-
-    }
-  ]).then(function (answers) {
-    connection.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('${answers.newFirstName}', '${answers.newLastName}', '${answers.employeRole}', '${answers.empManager}');`, (err, res) => {
-      if (err) throw err;
-      console.log('New employee has been added!');
-      console.log(res);
-      options();
-    })
-  })
-  })
+    
   connection.query('SELECT id, first_name, last_name FROM employee', (err, data) => {
     if (err) throw err;
     // created an array of object-manager to return values
@@ -264,32 +262,32 @@ function updateEmployeeRole() {
       }
 
     });
+    inquirer.prompt([
+      {
+        type: 'list',
+        name: 'upEmployee',
+        message: 'Which employee would you like to update?',
+        choices: employeeArray
+      },
+      {
+        type: 'list',
+        name: 'newRole',
+        message: 'Which role do you want to assign the selected employee',
+        choices: roleArray
+      },
+      
+    ]).then(function (answers) {
+      connection.query(`UPDATE employee SET role_id = '${answers.newRole}' WHERE id = '${answers.upEmployee}');`, (err, res) => {
+        if (err) throw err;
+        console.log('Employee updated!');
+        console.log(res);
+        options();
+      })
+    })
+  
   })
   
-  inquirer.prompt([
-    {
-      type: 'list',
-      name: 'upEmployee',
-      message: 'Which employee would you like to update?',
-      choices: employeeArray
-    },
-    {
-      type: 'list',
-      name: 'newRole',
-      message: 'Which role do you want to assign the selected employee',
-      choices: roleArray
-    },
-    
-  ]).then(function (answers) {
-    connection.query(`UPDATE employee SET role_id = ${answers.newRole} WHERE id = ${answers.upEmployee});`, (err, res) => {
-      if (err) throw err;
-      console.log('Employee updated!');
-      console.log(res);
-      options();
-    })
-  })
-
-
+})
 }
 
 
