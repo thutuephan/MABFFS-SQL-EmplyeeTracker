@@ -22,10 +22,6 @@ const connection = mysql.createConnection(
     database: 'company',
   }
 );
-connection.connect((err) => {
-  if (err) throw err;
-  console.log(`Connected to the company_db database.`);
-})
 
 function options() {
   inquirer.prompt({
@@ -102,7 +98,7 @@ function addDepartment() {
   ]).then(function (answers) {
     connection.query(`INSERT INTO department (name) VALUES ('${answers.newDepartment}');`, (err, res) => {
       if (err) throw err;
-      console.log('New department added!');
+      console.log('New department has been added!');
       console.log(res);
       options();
     })
@@ -160,7 +156,7 @@ function addRole() {
     ]).then(function (answers) {
       connection.query(`INSERT INTO role (title, salary, department_id) VALUES ('${answers.newRoleName}, ${answers.newRoleSalary}, ${answers.departmentId}');`, (err, res) => {
         if (err) throw err;
-        console.log('New role added!');
+        console.log('New role has been added!');
         console.log(res);
         options();
       })
@@ -235,9 +231,64 @@ function addEmployee() {
       choices: managerArray
 
     }
-  ])
+  ]).then(function (answers) {
+    connection.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('${answers.newFirstName}', '${answers.newLastName}', '${answers.employeRole}', '${answers.empManager}');`, (err, res) => {
+      if (err) throw err;
+      console.log('New employee has been added!');
+      console.log(res);
+      options();
+    })
+  })
 }
 
+function updateEmployeeRole() {
+  let roleArray = [];
+  let employeeArray = [];
+  
+  connection.query('SELECT id, title FROM role', (err, data) => {
+    roleArray = data.map(function (role) {
+      return {
+        name: role.title,
+        value: role.id
+      }
+    });
+  })
+  connection.query('SELECT id, first_name, last_name FROM employee', (err, data) => {
+    if (err) throw err;
+    // created an array of object-manager to return values
+    employeeArray = data.map(function (employee) {
+      return {
+        name: employee.first_name + " " + employee.last_name,
+        value: employee.id
+      }
+
+    });
+  })
+  
+  inquirer.prompt([
+    {
+      type: 'list',
+      name: 'upEmployee',
+      message: 'Which employee would you like to update?',
+      choices: employeeArray
+
+    },
+    {
+      type: 'list',
+      name: 'newRole',
+      message: 'Which role do you want to assign the selected employee',
+      choices: roleArray
+
+    },
+    
+  ]).then(function (answers) {
+    connection.query(`UPDATE employee SET role_id = ${answers.newRole} WHERE id = ${answers.upEmployee});`, (err, res) => {
+      if (err) throw err;
+      console.log('Employee updated!');
+      console.log(res);
+      options();
+    })
+  })
 
 
 
@@ -255,7 +306,12 @@ function addEmployee() {
 
 
 
-
+  connection.connect((err) => {
+    if (err) throw err;
+    console.log(`Connected to the company_db database.`);
+    options();
+  })
+  
 
 
 
@@ -265,10 +321,10 @@ function addEmployee() {
 
 
 // Default response for any other request (Not Found)
-app.use((req, res) => {
-  res.status(404).end();
-});
+// app.use((req, res) => {
+//   res.status(404).end();
+// });
 
-app.listen(PORT, () => {
-  console.log('Server running on port ${PORT}');
-});
+// app.listen(PORT, () => {
+//   console.log('Server running on port ${PORT}');
+// });
