@@ -210,10 +210,10 @@ function addEmployee() {
           value: employee.id
         }
       });
-      // managerArray.push({
-      //   value: '',
-      //   name: 'None'
-      // })
+      managerArray.push({
+        value: null,
+        name: 'None'
+       })
 
 
       inquirer.prompt([
@@ -240,7 +240,9 @@ function addEmployee() {
           choices: managerArray
         },
       ]).then(function (answers) {
-        connection.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('${answers.newFirstName}', '${answers.newLastName}', '${answers.employeeRole}', '${answers.empManager}');`, (err, res) => {
+        const query = `INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?);)`;
+        const params = [answers.first_name, answers.last_name, answers.employeeRole, answers.empManager];
+        connection.query(query, params, (err, res) => {
           if (err) throw err;
           console.log('New employee has been added!');
           console.log(res);
