@@ -36,6 +36,7 @@ function options() {
       'View All Employees',
       'Add Employee',
       'Update Employee Role',
+      'Delete Department',
       'Quit'
     ]
 
@@ -62,6 +63,9 @@ function options() {
           break;
         case 'Update Employee Role':
           updateEmployeeRole();
+          break;
+        case 'Delete Department':
+          deleteDepartment();
           break;
         case 'Quit':
           quitApp();
@@ -302,6 +306,28 @@ function updateEmployeeRole() {
     })
 
   })
+}
+
+// Delete department
+function deleteDepartment() {
+  inquirer.prompt([
+    {
+      type: 'input',
+      name: 'department',
+      message: 'Enter the name of the department you would like to delete.'
+    }
+    ]).then((answers) => {
+      const query = `DELETE FROM department WHERE ?`;
+      const deleteDept = {
+        name: answers.department
+      };
+      connection.query(query, deleteDept, (err, res) => {
+        if (err) throw err;
+        console.log('This department has been successfully deleted from the table of database.');
+        options();
+      })
+      
+    })
 }
 
 connection.connect((err) => {
