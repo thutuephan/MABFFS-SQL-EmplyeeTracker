@@ -240,8 +240,8 @@ function addEmployee() {
           choices: managerArray
         },
       ]).then(function (answers) {
-        const query = `INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?);)`;
-        const params = [answers.first_name, answers.last_name, answers.employeeRole, answers.empManager];
+        const query = `INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)`;
+        const params = [answers.newFirstName, answers.newLastName, answers.employeeRole, answers.empManager];
         connection.query(query, params, (err, res) => {
           if (err) throw err;
           console.log('New employee has been added!');
