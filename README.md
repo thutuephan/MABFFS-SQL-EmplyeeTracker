@@ -70,10 +70,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   * Email: [alicebe.phan@gmail.com](mailto:alicebe.phan@gmail.com)
 
   ## Resources and Tutorials
-  * https://www.npmjs.com/
+  * https://www.mysqltutorial.org/mysql-left-join.aspx
 
-  * https://devcenter.heroku.com/articles/git
-  * https://expressjs.com/
+  * https://www.w3schools.com/jsref/jsref_push.asp
+
+  * https://www.npmjs.com/package/mysql2
+
+  * https://stackoverflow.com/questions/30548532/sql-server-how-make-allow-null-value-in-column
 
   
 
