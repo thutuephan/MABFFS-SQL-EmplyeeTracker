@@ -181,7 +181,6 @@ function viewAllEmployees() {
   LEFT JOIN employee manager ON manager.id = employee.manager_id;
   `
 
-
   connection.query(query, (err, res) => {
     if (err) throw err;
     console.log(res);
@@ -251,10 +250,7 @@ function addEmployee() {
   })
   })
 }
-
-  
-  
-
+ 
 function updateEmployeeRole() {
   let roleArray = [];
   let employeeArray = [];
@@ -306,13 +302,6 @@ function updateEmployeeRole() {
 })
 }
 
-
-
-
-
-
-
-
   connection.connect((err) => {
     if (err) throw err;
     console.log(`Connected to the company_db database.`);
@@ -325,5 +314,4 @@ quitApp = () => {
 
 }
 
-//So you want to combine all the tables and
 
