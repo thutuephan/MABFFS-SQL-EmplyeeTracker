@@ -165,7 +165,23 @@ function addRole() {
   });
 }
 function viewAllEmployees() {
-  const query = 'SELECT * FROM employee';
+  //THEN I am presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
+  
+  // employee.role_id = role.id: checking if the employee.role_id matches the role.id
+  
+  // Combine the SELECT and FROM into one string and add that to the query const variable 
+  // LEFT JOIN add its to the left
+
+  const query = `SELECT employee.id, employee.first_name, employee.last_name, role.salary, role.title, department.name AS department, CONCAT(manager.first_name," ", manager.last_name) AS manager
+  
+  FROM employee
+
+  LEFT JOIN role ON employee.role_id = role.id
+  LEFT JOIN department ON role.department_id = department.id
+  LEFT JOIN employee manager ON manager.id = employee.manager_id;
+  `
+
+
   connection.query(query, (err, res) => {
     if (err) throw err;
     console.log(res);
@@ -309,9 +325,5 @@ quitApp = () => {
 
 }
 
-
-
-
-
-
+//So you want to combine all the tables and
 
