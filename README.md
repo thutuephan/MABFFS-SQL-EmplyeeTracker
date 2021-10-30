@@ -20,10 +20,10 @@
   ## Installation
   1. Create the file packages include `.gitignore` file `node_modules/`, `package-lock.json`, `package.json`. 
   2. Run the command-lines to install packages and libraries:
-    * `npm install` 
-    * `npm mysql2`
-    * `npm start`
-    * `npm inquirer`
+     `npm install` 
+     `npm mysql2`
+     `npm start`
+     `npm inquirer`
    
 
   ## Usage
@@ -34,11 +34,12 @@
   ## Links
   * The URL of the GitHub repository with a unique name and a README describing the project: 
   * The heroku URL of the functional, deployed application: 
-  * [Walkthrough Video](https://watch.screencastify.com/v/C6pAiYAdLRT06pPJMmOE)
+  * [Walkthrough Video](https://watch.screencastify.com/v/iODX868cvonJptXxc5xp)
+  
   
 
   ## Screenshots
-  
+  ![Employee-tracker](https://github.com/thutuephan/MABFFS-SQL-EmplyeeTracker/blob/main/assets/images/Capture.PNG)
   ## Credits
   * THU PHAN  
   * Instructional Staff
