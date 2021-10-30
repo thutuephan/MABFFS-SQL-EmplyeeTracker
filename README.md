@@ -20,10 +20,10 @@
   ## Installation
   1. Create the file packages include `.gitignore` file `node_modules/`, `package-lock.json`, `package.json`. 
   2. Run the command-lines to install packages and libraries:
-    -  `npm install` 
-    - `npm mysql2`
-    - `npm start`
-    - `npm inquirer`
+  -  `npm install` 
+  - `npm mysql2`
+  - `npm start`
+  - `npm inquirer`
    
 
   ## Usage
@@ -32,9 +32,7 @@
   * When the user chooses to view all employees, he/she is presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to.  
 
   ## Links
-  * The URL of the GitHub repository with a unique name and a README describing the project: 
-  https://github.com/thutuephan/MABFFS-SQL-EmplyeeTracker
-  <br>
+  * The URL of the GitHub repository with a unique name and a README describing the project: https://github.com/thutuephan/MABFFS-SQL-EmplyeeTracker
   * [Walkthrough Video](https://watch.screencastify.com/v/iODX868cvonJptXxc5xp)
   
   
