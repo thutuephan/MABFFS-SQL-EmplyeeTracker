@@ -342,12 +342,12 @@ function deleteEmployee() {
     {
       type: 'input',
       name: 'employee',
-      message: 'Enter the name of the employee you would like to delete.'
+      message: 'Enter the id of the employee you would like to delete.'
     }
   ]).then((answers) => {
-    const query = `DELETE FROM employee WHERE ?`;
+    const query = `DELETE FROM employee WHERE id=?`;
     const deleteEmp = {
-      name: answers.employee
+      id: answers.employee
     };
     connection.query(query, deleteEmp, (err, res) => {
       if (err) throw err;
