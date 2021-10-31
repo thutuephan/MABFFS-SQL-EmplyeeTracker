@@ -355,7 +355,7 @@ function deleteEmployee() {
     };
     connection.query(query, deleteEmp, (err, res) => {
       if (err) throw err;
-      console.log('This employee has been deleted successfully from the table of database.');
+      console.log('This employee has been deleted successfully from the company database.');
       options();
     })
   })
@@ -367,17 +367,17 @@ function deleteRole() {
   inquirer.prompt([
     {
       type: 'input',
-      name: 'roleId',
+      name: 'role',
       message: 'Enter the id of the role you would like to delete.'
     }
   ]).then((answers) => {
     const query = `DELETE FROM role WHERE ?`;
     const deleteRoleId = {
-      id: answers.roleId
+      id: answers.role
     };
     connection.query(query, deleteRoleId, (err, res) => {
       if (err) throw err;
-      console.log('This role has been deleted successfully from the table of database.');
+      console.log('This role has been deleted successfully from the company database.');
       options();
     })
   })
