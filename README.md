@@ -33,12 +33,12 @@
 
   ## Links
   * The URL of the GitHub repository with a unique name and a README describing the project: https://github.com/thutuephan/MABFFS-SQL-EmplyeeTracker
-  * [Walkthrough Video](https://watch.screencastify.com/v/iODX868cvonJptXxc5xp)
+  * [Walkthrough Video](https://watch.screencastify.com/v/Pm2DQSswlfi2kklHWjKS)
   
   
 
   ## Screenshots
-  ![Employee-tracker](https://github.com/thutuephan/MABFFS-SQL-EmplyeeTracker/blob/main/assets/images/Capture.PNG)
+  ![Employee-tracker](https://github.com/thutuephan/MABFFS-SQL-EmplyeeTracker/blob/main/assets/images/Employee%20Management%20system.PNG)
   ## Credits
   * THU PHAN  
   * Instructional Staff
