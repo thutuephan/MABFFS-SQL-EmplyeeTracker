@@ -38,6 +38,7 @@ function options() {
       'Update Employee Role',
       'Delete Department',
       'Delete Employee',
+      'Delete Role',
       'Quit'
     ]
 
@@ -71,6 +72,9 @@ function options() {
           break;
         case 'Delete Employee':
           deleteEmployee();
+          break;
+        case 'Delete Role':
+          deleteRole();
           break;
         case 'Quit':
           quitApp();
@@ -341,13 +345,13 @@ function deleteEmployee() {
   inquirer.prompt([
     {
       type: 'input',
-      name: 'employee',
+      name: 'employeeId',
       message: 'Enter the id of the employee you would like to delete.'
     }
   ]).then((answers) => {
-    const query = `DELETE FROM employee WHERE id=?`;
+    const query = `DELETE FROM employee WHERE ?`;
     const deleteEmp = {
-      id: answers.employee
+      id: answers.employeeId
     };
     connection.query(query, deleteEmp, (err, res) => {
       if (err) throw err;
@@ -356,6 +360,29 @@ function deleteEmployee() {
     })
   })
 }
+
+// Delete role
+function deleteRole() {
+  
+  inquirer.prompt([
+    {
+      type: 'input',
+      name: 'roleId',
+      message: 'Enter the id of the role you would like to delete.'
+    }
+  ]).then((answers) => {
+    const query = `DELETE FROM role WHERE ?`;
+    const deleteRoleId = {
+      id: answers.roleId
+    };
+    connection.query(query, deleteRoleId, (err, res) => {
+      if (err) throw err;
+      console.log('This role has been deleted successfully from the table of database.');
+      options();
+    })
+  })
+}
+
 
 connection.connect((err) => {
   if (err) throw err;
