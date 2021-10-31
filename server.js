@@ -37,11 +37,13 @@ function options() {
       'Add Employee',
       'Update Employee Role',
       'Delete Department',
+      'Delete Employee',
       'Quit'
     ]
 
   })
     .then(function (answers) {
+      console.log('view');
       switch (answers.menu) {
         case 'View All Departments':
           viewAllDepartments();
@@ -66,6 +68,9 @@ function options() {
           break;
         case 'Delete Department':
           deleteDepartment();
+          break;
+        case 'Delete Employee':
+          deleteEmployee();
           break;
         case 'Quit':
           quitApp();
@@ -328,6 +333,28 @@ function deleteDepartment() {
       })
       
     })
+}
+
+// Delete employee
+function deleteEmployee() {
+  
+  inquirer.prompt([
+    {
+      type: 'input',
+      name: 'employee',
+      message: 'Enter the name of the employee you would like to delete.'
+    }
+  ]).then((answers) => {
+    const query = `DELETE FROM employee WHERE ?`;
+    const deleteEmp = {
+      name: answers.employee
+    };
+    connection.query(query, deleteEmp, (err, res) => {
+      if (err) throw err;
+      console.log('This employee has been deleted successfully from the table of database.');
+      options();
+    })
+  })
 }
 
 connection.connect((err) => {
