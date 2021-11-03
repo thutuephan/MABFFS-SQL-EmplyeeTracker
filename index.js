@@ -1,14 +1,8 @@
-const express = require('express');
 // Import and require mysql2
 const mysql = require('mysql2');
 const inquirer = require('inquirer');
 // require the console.table package
 const table = require('console.table');
-const { query } = require('express');
-
-// Express middleware
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
 
 // Connect to database
 const connection = mysql.createConnection(
