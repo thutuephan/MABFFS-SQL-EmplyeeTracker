@@ -5,8 +5,6 @@ const inquirer = require('inquirer');
 // require the console.table package
 const table = require('console.table');
 const { query } = require('express');
-const PORT = process.env.PORT || 3001;
-const app = express();
 
 // Express middleware
 app.use(express.urlencoded({ extended: false }));
@@ -22,7 +20,7 @@ const connection = mysql.createConnection(
     database: 'company_db',
   }
 );
-
+// Start writing all the functions for the app
 function options() {
   inquirer.prompt({
     type: 'list',
@@ -85,7 +83,7 @@ function options() {
     })
 
 };
-
+// view all department in database
 function viewAllDepartments() {
   const query = 'SELECT * FROM department';
   connection.query(query, function (err, res) {
@@ -100,7 +98,7 @@ function viewAllDepartments() {
     }
   })
 };
-
+// add department
 function addDepartment() {
   inquirer.prompt([
     {
@@ -110,6 +108,7 @@ function addDepartment() {
 
     }
   ]).then(function (answers) {
+    // write add department syntax
     connection.query(`INSERT INTO department (name) VALUES ('${answers.newDepartmentName}');`, (err, res) => {
       if (err) throw err;
       console.log('New department has been added!');
@@ -177,11 +176,10 @@ function addRole() {
     })
   });
 }
+// view all employee from database
 function viewAllEmployees() {
   //THEN I am presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
-
   // employee.role_id = role.id: checking if the employee.role_id matches the role.id
-
   // Combine the SELECT and FROM into one string and add that to the query const variable 
   // LEFT JOIN add its to the left
 
@@ -201,7 +199,7 @@ function viewAllEmployees() {
     options();
   })
 };
-
+// add emplooyee to database
 function addEmployee() {
   let roleArray = [];
   let managerArray = [];
@@ -226,7 +224,7 @@ function addEmployee() {
       managerArray.push({
         value: null,
         name: 'None'
-       })
+      })
 
 
       inquirer.prompt([
@@ -265,7 +263,7 @@ function addEmployee() {
     })
   })
 }
-
+// update the role of employee
 function updateEmployeeRole() {
   let roleArray = [];
   let employeeArray = [];
@@ -325,23 +323,23 @@ function deleteDepartment() {
       name: 'department',
       message: 'Enter the name of the department you would like to delete.'
     }
-    ]).then((answers) => {
-      const query = `DELETE FROM department WHERE ?`;
-      const deleteDept = {
-        name: answers.department
-      };
-      connection.query(query, deleteDept, (err, res) => {
-        if (err) throw err;
-        console.log('This department has been successfully deleted from the table of database.');
-        options();
-      })
-      
+  ]).then((answers) => {
+    const query = `DELETE FROM department WHERE ?`;
+    const deleteDept = {
+      name: answers.department
+    };
+    connection.query(query, deleteDept, (err, res) => {
+      if (err) throw err;
+      console.log('This department has been successfully deleted from the table of database.');
+      options();
     })
+
+  })
 }
 
 // Delete employee
 function deleteEmployee() {
-  
+
   inquirer.prompt([
     {
       type: 'input',
@@ -363,7 +361,7 @@ function deleteEmployee() {
 
 // Delete role
 function deleteRole() {
-  
+
   inquirer.prompt([
     {
       type: 'input',
